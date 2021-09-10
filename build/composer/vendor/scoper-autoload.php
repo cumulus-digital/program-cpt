@@ -57,8 +57,8 @@ if (!class_exists('TGMPA_Bulk_Installer_Skin', false) && !interface_exists('TGMP
 if (!class_exists('TGMPA_Utils', false) && !interface_exists('TGMPA_Utils', false) && !trait_exists('TGMPA_Utils', false)) {
     spl_autoload_call('CUMULUS\Wordpress\ProgramCPT\TGMPA_Utils');
 }
-if (!class_exists('ComposerAutoloaderInitab8c2bdffa58e19925202a8003a7447f', false) && !interface_exists('ComposerAutoloaderInitab8c2bdffa58e19925202a8003a7447f', false) && !trait_exists('ComposerAutoloaderInitab8c2bdffa58e19925202a8003a7447f', false)) {
-    spl_autoload_call('CUMULUS\Wordpress\ProgramCPT\ComposerAutoloaderInitab8c2bdffa58e19925202a8003a7447f');
+if (!class_exists('ComposerAutoloaderInit095b39469d63aaa386d4213dc17843d2', false) && !interface_exists('ComposerAutoloaderInit095b39469d63aaa386d4213dc17843d2', false) && !trait_exists('ComposerAutoloaderInit095b39469d63aaa386d4213dc17843d2', false)) {
+    spl_autoload_call('CUMULUS\Wordpress\ProgramCPT\ComposerAutoloaderInit095b39469d63aaa386d4213dc17843d2');
 }
 
 // Functions whitelisting. For more information see:
@@ -103,9 +103,9 @@ if (!function_exists('my_theme_register_required_plugins')) {
         return \CUMULUS\Wordpress\ProgramCPT\my_theme_register_required_plugins(...func_get_args());
     }
 }
-if (!function_exists('composerRequireab8c2bdffa58e19925202a8003a7447f')) {
-    function composerRequireab8c2bdffa58e19925202a8003a7447f() {
-        return \CUMULUS\Wordpress\ProgramCPT\composerRequireab8c2bdffa58e19925202a8003a7447f(...func_get_args());
+if (!function_exists('composerRequire095b39469d63aaa386d4213dc17843d2')) {
+    function composerRequire095b39469d63aaa386d4213dc17843d2() {
+        return \CUMULUS\Wordpress\ProgramCPT\composerRequire095b39469d63aaa386d4213dc17843d2(...func_get_args());
     }
 }
 
