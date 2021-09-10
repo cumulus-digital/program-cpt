@@ -1,0 +1,26 @@
+@mixin tags() {
+	display: flex;
+	align-items: center;
+	gap: .25em;
+
+	* {
+		vertical-align: middle;
+	}
+
+	a {
+		display: inline-block;
+		background-color: rgba(0, 0, 0, 0.05);
+		color: var(--cmls_base-color-content-foreground);
+		border-radius: 1em;
+		text-decoration: none;
+		margin: 0;
+		padding: .15em .6em;
+		transition: background-color .15s;
+
+		@include hover {
+			background-color: var(--cmls_base-color-highlight);
+			color: var(--cmls_base-color-content-background);
+			text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+		}
+	}
+}

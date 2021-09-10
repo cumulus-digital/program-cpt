@@ -1,0 +1,15 @@
+.cmls-program {
+	&>.tags {
+		margin-top: 1.75rem;
+		font-size: 0.8em;
+
+		h5 {
+			display: inline;
+			font-weight: normal;
+			margin: 0;
+		}
+
+		@include tags;
+
+	}
+}

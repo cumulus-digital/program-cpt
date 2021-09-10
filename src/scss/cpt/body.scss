@@ -1,0 +1,47 @@
+.cmls-program,
+.editor-styles-wrapper {
+
+	&.hide-header > .body {
+		margin-top: 2rem;
+	}
+
+	.program-content {
+		gap: 3rem;
+		margin: 0;
+
+		// responsive view should have sidebar last
+		@include phone {
+			flex-direction: column-reverse;
+			gap: 2rem;
+		}
+
+		.wp-block-column {
+			margin: 0;
+			padding: 0;
+		}
+
+		.sidebar {
+			padding-top: 0;
+			flex-basis: calc(var(--featured-image-size) - 2.5rem) !important;
+
+			font-size: 0.85em;
+			text-align: right;
+
+			@include phone {
+				flex-basis: auto !important;
+				padding-top: 0;
+				font-size: 0.95em;
+				text-align: left;
+			}
+		}
+
+		@at-root .cmls-program.display-header>.body>.program-content .sidebar {
+			padding-top: calc(var(--space-below-featured-image) - 0.5rem);
+		}
+	}
+
+	&>.body {
+		min-height: calc(var(--space-below-featured-image) / 1.25);
+	}
+
+}

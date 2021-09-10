@@ -1,0 +1,13 @@
+@import './global.scss';
+@import './cpt/body.scss';
+
+.editor-styles-wrapper .program-content {
+	--header-padding: #{$header-padding};
+	--featured-image-size: #{$featured-image-size};
+	--space-below-featured-image: #{$space-below-featured-image};
+
+	gap: 1rem;
+	.wp-block-column {
+		//border: 1px dotted var(--cmls_base-color-brand);
+	}
+}
