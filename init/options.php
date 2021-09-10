@@ -268,6 +268,7 @@ class AdminOptions {
 		} ?>
 		<form action="options.php" method="post">
 			<h1>"Show" CPT Options</h1>
+			<div class="notice notice-warning"><p style="font-size:1.5em">Editing these options is bad for your health! Don't do it unless you know what you're doing.</p></div>
 			<p>
 				Changes here may affect permalinks. After saving, be sure to
 				<a href="<?php echo \admin_url( 'options-permalink.php' ); ?>">
