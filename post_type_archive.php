@@ -6,13 +6,14 @@
 namespace CUMULUS\Wordpress\ProgramCPT;
 
 use function CMLS_Base\cmls_get_template_part;
+use function CMLS_Base\make_post_class;
 
 $this_term = \get_queried_object();
 
 if ( \is_a( $this_term, 'WP_Post_Type' ) ) {
-	$term_children_ids = \get_term_children( 0, PREFIX . '-cat' );
+	$term_children_ids = \get_term_children( 0, $this_term->name . '-cat' );
 	$term_children     = \get_terms( [
-		'taxonomy'   => PREFIX . '-cat',
+		'taxonomy'   => $this_term->name . '-cat',
 		'include'    => $term_children_ids,
 		'parent'     => 0,
 		'hide_empty' => true,
@@ -24,4 +25,4 @@ if ( \is_a( $this_term, 'WP_Post_Type' ) ) {
 
 \CMLS_Base\BodyClasses::add( 'disable_bottom_padding' );
 
-cmls_get_template_part( 'archive', null, [ 'term_children' => $term_children] );
+cmls_get_template_part( 'archive', make_post_class(), [ 'term_children' => $term_children] );

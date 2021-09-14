@@ -7,7 +7,7 @@ namespace CUMULUS\Wordpress\ProgramCPT;
 
 // Tell base theme where our templates are
 \add_filter( 'cmls-locate_template_path', function ( $paths ) {
-	if ( \is_singular( PREFIX ) ) {
+	if ( \is_singular( CPTs::getKeys() ) ) {
 		$paths[] = BASEPATH;
 	}
 
@@ -16,15 +16,15 @@ namespace CUMULUS\Wordpress\ProgramCPT;
 
 // Use our archive template for CPT archive
 \add_filter( 'template_include', function ( $template ) {
-	if ( \is_post_type_archive( PREFIX ) ) {
-		return BASEPATH . '/archive-program.php';
+	if ( \is_post_type_archive( CPTs::getKeys() ) ) {
+		return BASEPATH . '/post_type_archive.php';
 	}
 
 	return $template;
 } );
 
 \add_action( 'wp_enqueue_scripts', function () {
-	if ( \is_singular( PREFIX ) || \is_archive( PREFIX ) ) {
+	if ( \is_singular( CPTs::getKeys() ) || \is_archive( CPTs::getKeys() ) ) {
 		$assets = include BASEPATH . '/build/frontend.asset.php';
 		\wp_register_script(
 			PREFIX . '_script-frontend',

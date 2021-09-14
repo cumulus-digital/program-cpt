@@ -1,4 +1,4 @@
-.cmls-program,
+.cmls-program-cpt,
 .editor-styles-wrapper {
 
 	&.hide-header > .body {
@@ -35,7 +35,7 @@
 			}
 		}
 
-		@at-root .cmls-program.display-header>.body>.program-content .sidebar {
+		@at-root .cmls-program-cpt.display-header>.body>.program-content .sidebar {
 			padding-top: calc(var(--space-below-featured-image) - 0.5rem);
 		}
 	}

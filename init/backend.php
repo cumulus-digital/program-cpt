@@ -12,7 +12,10 @@ namespace CUMULUS\Wordpress\ProgramCPT;
 
 	$screen = \get_current_screen();
 
-	if ( $screen->post_type === PREFIX && $screen->is_block_editor ) {
+	if (
+		$screen->is_block_editor
+		&& \in_array( $screen->post_type, CPTs::getKeys() )
+	) {
 		\wp_enqueue_style( 'cmls-program-cpt-block-style', BASEURL . '/build/backend.css' );
 	}
 } );

@@ -7,5 +7,5 @@ namespace CUMULUS\Wordpress\ProgramCPT;
 
 \defined( 'ABSPATH' ) || exit( 'No direct access allowed.' );
 
-$cpt = 'program';
+$cpt = 'format';
 include 'base-our-cpts.php';

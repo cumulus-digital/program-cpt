@@ -15,7 +15,14 @@ use function CMLS_Base\tax_query_includes_children;
 use WP_Query;
 
 \add_action( 'cmls_template-archive-after_content', function () {
-	if ( ! \is_tax( PREFIX . '-cat' ) ) {
+	$taxes = \array_map(
+		function ( $str ) {
+			return $str . '-cat';
+		},
+		CPTs::getKeys()
+	);
+
+	if ( ! \is_tax( $taxes ) ) {
 		return;
 	}
 

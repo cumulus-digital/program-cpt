@@ -1,6 +1,6 @@
 @use 'sass:math';
 
-.cmls-program {
+.cmls-program-cpt {
 
 	--header-padding: #{$header-padding};
 	--featured-image-size: #{$featured-image-size};
@@ -33,7 +33,7 @@
 			font-size: 1.55rem;
 			margin-bottom: 1.5rem;
 
-			@at-root .cmls-progam.no-header-background>header {
+			@at-root .cmls-program-cpt.no-header-background>header {
 				margin-bottom: 1rem;
 			}
 		}
@@ -80,11 +80,11 @@
 			flex-basis: calc(100% - var(--featured-image-size));
 			padding: 0 0 $header-padding;
 
-			@at-root .cmls-progam.no-header-background header .title {
+			@at-root .cmls-program-cpt.no-header-background header .title {
 				padding-bottom: 0;
 			}
 
-			@at-root .cmls-progam.no-featured-image header .title {
+			@at-root .cmls-program-cpt.no-featured-image header .title {
 				flex-basis: 100%;
 			}
 
@@ -96,7 +96,7 @@
 				font-size: .72em;
 				flex-basis: 100%;
 
-				@at-root .cmls-progam.has-header-background header .title {
+				@at-root .cmls-program-cpt.has-header-background header .title {
 					padding-bottom: var(--header-padding);
 				}
 			}

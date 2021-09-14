@@ -3,12 +3,12 @@
 namespace CUMULUS\Wordpress\ProgramCPT;
 
 /*
- * Plugin Name: Program Custom Post Type
+ * Plugin Name: Program/Format Custom Post Types
  * Plugin URI: https://github.com/cumulus-digital/program-cpt/
  * GitHub Plugin URI: https://github.com/cumulus-digital/program-cpt/
  * Primary Branch: main
- * Description: Custom post type, blocks and tooling for "programs"
- * Version: 1.0.2
+ * Description: Custom post types, blocks and tooling for "programs" and "formats"
+ * Version: 1.0.3
  * Author: vena
  * License: UNLICENSED
  */
@@ -28,7 +28,9 @@ const BASE_FILENAME = PLUGIN_NAME . \DIRECTORY_SEPARATOR . PLUGIN_NAME . '.php';
 require_once __DIR__ . '/build/composer/vendor/scoper-autoload.php';
 
 // Extend extended-cpts to support hierarchical links
-require_once __DIR__ . '/libs/extended-cpts-hierarchical-post-link.php';
+//require_once __DIR__ . '/libs/extended-cpts-hierarchical-post-link.php';
+
+const CPTs = [];
 
 // Initialize
 require __DIR__ . '/init/index.php';

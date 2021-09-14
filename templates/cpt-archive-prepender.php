@@ -9,12 +9,20 @@ namespace CUMULUS\Wordpress\ProgramCPT;
 \defined( 'ABSPATH' ) || exit( 'No direct access allowed.' );
 
 \add_action( 'cmls_template-archive-after_header', function () {
-	if ( ! \is_tax( PREFIX . '-cat' ) ) {
+	$taxes = \array_map(
+		function ( $str ) {
+			return $str . '-cat';
+		},
+		CPTs::getKeys()
+	);
+
+	if ( ! \is_tax( $taxes ) ) {
 		return;
 	}
 
 	$current_term = \get_queried_object();
-	$tax_tags = \CMLS_Base\get_category_tags( $current_term, PREFIX . '-tag' );
+	$tax = \get_taxonomy( $current_term->taxonomy );
+	$tax_tags = \CMLS_Base\get_category_tags( $current_term, $tax->object_type[0] . '-tag' );
 
 	if ( \count( $tax_tags ) ) {
 		?>

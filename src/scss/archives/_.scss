@@ -1,6 +1,8 @@
-.archive.tax-program-cat {
+.archive.tax-program-cat,
+.archive.tax-format-cat {
 	.row.tags {
 		font-size: 0.75em;
+			a { font-size: inherit !important; }
 		text-align: center;
 
 		margin-bottom: 1.5em;
