@@ -7,8 +7,8 @@ namespace CUMULUS\Wordpress\ProgramCPT;
  * Plugin URI: https://github.com/cumulus-digital/program-cpt/
  * GitHub Plugin URI: https://github.com/cumulus-digital/program-cpt/
  * Primary Branch: main
- * Description: Custom post types, blocks and tooling for "programs" and "formats"
- * Version: 1.0.3
+ * Description: Custom post types, taxonomies, block templates and tooling for "programs" and "formats"
+ * Version: 1.0.4
  * Author: vena
  * License: UNLICENSED
  */

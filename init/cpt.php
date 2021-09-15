@@ -7,6 +7,7 @@ use Exception;
 // Exit if accessed directly.
 \defined( 'ABSPATH' ) || exit( 'No direct access allowed.' );
 
+// Static container for CPTs
 class CPTs {
 
 	public static $store = [];
@@ -24,6 +25,7 @@ class CPTs {
 	}
 }
 
+// Generate CPTs, their category, and tags
 class CPT {
 
 	private $prefix = '';
@@ -131,9 +133,7 @@ class CPT {
 		}
 
 		if ( $options && \is_array( $options ) ) {
-			$this->options['cpt']      = \array_merge( $this->options['cpt'], isset( $options['cpt'] ) ? $options['cpt'] : [] );
-			$this->options['category'] = \array_merge( $this->options['category'], isset( $options['category'] ) ? $options['category'] : [] );
-			$this->options['tag']      = \array_merge( $this->options['tag'], isset( $options['tag'] ) ? $options['tag'] : [] );
+			$this->options = \array_replace_recursive( $this->options, $options );
 		}
 
 		// Set up rewrites
