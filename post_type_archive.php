@@ -30,6 +30,8 @@ if ( \is_a( $this_term, 'WP_Post_Type' ) ) {
 	$wp_query->post_count = 0;
 }
 
-\CMLS_Base\BodyClasses::add( 'disable_bottom_padding' );
+if ( ! \have_posts() || $term_children ) {
+	\CMLS_Base\BodyClasses::add( 'disable_bottom_padding' );
+}
 
 cmls_get_template_part( 'archive', make_post_class(), [ 'term_children' => $term_children] );
