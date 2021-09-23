@@ -210,6 +210,13 @@
                 "operator": "==",
                 "value": "program"
             }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "format"
+            }
         ]
     ],
     "menu_order": 0,
@@ -220,5 +227,5 @@
     "hide_on_screen": "",
     "active": true,
     "description": "",
-    "modified": 1631288991
+    "modified": 1632425514
 }
