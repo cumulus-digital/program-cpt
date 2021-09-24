@@ -67,8 +67,8 @@ use Exception;
 		}
 
 		// Update the post with this generated excerpt so we don't have to keep doing this...
-		$post->post_excerpt = $text;
-		\wp_update_post( $post );
+		//$post->post_excerpt = $text;
+		//\wp_update_post( $post );
 
 		return $text;
 	} catch ( Exception $e ) {
