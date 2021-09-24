@@ -313,7 +313,7 @@ class CPT {
 				}
 
 				// Handle links to cat slug base
-				if ( is_term_query() ) {
+				if ( \is_term_query() ) {
 					if (
 						$test_slug === $this->labels['category']['slug']
 						|| $test_slug === $this->labels['tag']['slug']
