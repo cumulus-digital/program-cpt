@@ -78,7 +78,13 @@ echo \untrailingslashit( \get_term_parents_list(
 	<?php if ( $tags ): ?>
 		<aside class="tags">
 			<h5>Tags:</h5>
-			<?php \the_terms( \get_the_ID(), PREFIX . '-tag', null, null, null ); ?>
+			<?php
+				\the_terms(
+					\get_the_ID(),
+					$req->post_type . '-tag',
+					null, null, null
+				);
+			?>
 		</aside>
 	<?php endif; ?>
 
