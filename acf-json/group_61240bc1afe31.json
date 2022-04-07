@@ -227,5 +227,6 @@
     "hide_on_screen": "",
     "active": true,
     "description": "",
-    "modified": 1632425514
+    "show_in_rest": 0,
+    "modified": 1649185314
 }

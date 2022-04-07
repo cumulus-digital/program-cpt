@@ -41,6 +41,6 @@ function registerRequiredPlugins() {
 		'strings' => [],
 	];
 
-	\tgmpa( $plugins, $config );
+	\CUMULUS\Wordpress\ProgramCPT\tgmpa( $plugins, $config );
 }
 \add_action( 'tgmpa_register', __NAMESPACE__ . '\\registerRequiredPlugins' );

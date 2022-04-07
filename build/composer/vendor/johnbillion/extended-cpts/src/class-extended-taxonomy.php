@@ -202,7 +202,7 @@ class Extended_Taxonomy
     {
         require_once __DIR__ . '/class-extended-rewrite-testing.php';
         require_once __DIR__ . '/class-extended-taxonomy-rewrite-testing.php';
-        $extended = new Extended_Taxonomy_Rewrite_Testing($this);
+        $extended = new \CUMULUS\Wordpress\ProgramCPT\Extended_Taxonomy_Rewrite_Testing($this);
         return \array_merge($tests, $extended->get_tests());
     }
     /**
