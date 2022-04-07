@@ -680,7 +680,7 @@ if (!\class_exists('CUMULUS\\Wordpress\\ProgramCPT\\TGM_Plugin_Activation')) {
         public function install_plugins_page()
         {
             // Store new instance of plugin table in object.
-            $plugin_table = new \CUMULUS\Wordpress\ProgramCPT\TGMPA_List_Table();
+            $plugin_table = new TGMPA_List_Table();
             // Return early if processing a plugin installation action.
             if (('tgmpa-bulk-install' === $plugin_table->current_action() || 'tgmpa-bulk-update' === $plugin_table->current_action()) && $plugin_table->process_bulk_actions() || $this->do_plugin_install()) {
                 return;
@@ -1223,9 +1223,9 @@ if (!\class_exists('CUMULUS\\Wordpress\\ProgramCPT\\TGM_Plugin_Activation')) {
             // Forgive users for using string versions of booleans or floats for version number.
             $plugin['version'] = (string) $plugin['version'];
             $plugin['source'] = empty($plugin['source']) ? 'repo' : $plugin['source'];
-            $plugin['required'] = \CUMULUS\Wordpress\ProgramCPT\TGMPA_Utils::validate_bool($plugin['required']);
-            $plugin['force_activation'] = \CUMULUS\Wordpress\ProgramCPT\TGMPA_Utils::validate_bool($plugin['force_activation']);
-            $plugin['force_deactivation'] = \CUMULUS\Wordpress\ProgramCPT\TGMPA_Utils::validate_bool($plugin['force_deactivation']);
+            $plugin['required'] = TGMPA_Utils::validate_bool($plugin['required']);
+            $plugin['force_activation'] = TGMPA_Utils::validate_bool($plugin['force_activation']);
+            $plugin['force_deactivation'] = TGMPA_Utils::validate_bool($plugin['force_deactivation']);
             // Enrich the received data.
             $plugin['file_path'] = $this->_get_plugin_basename_from_slug($plugin['slug']);
             $plugin['source_type'] = $this->get_plugin_source_type($plugin['source']);
@@ -1842,7 +1842,7 @@ if (!\class_exists('CUMULUS\\Wordpress\\ProgramCPT\\TGM_Plugin_Activation')) {
             return self::$instance;
         }
     }
-    if (!\function_exists('load_tgm_plugin_activation')) {
+    if (!\function_exists('CUMULUS\\Wordpress\\ProgramCPT\\load_tgm_plugin_activation')) {
         /**
          * Ensure only one instance of the class is ever invoked.
          *
@@ -1850,16 +1850,16 @@ if (!\class_exists('CUMULUS\\Wordpress\\ProgramCPT\\TGM_Plugin_Activation')) {
          */
         function load_tgm_plugin_activation()
         {
-            $GLOBALS['tgmpa'] = \CUMULUS\Wordpress\ProgramCPT\TGM_Plugin_Activation::get_instance();
+            $GLOBALS['tgmpa'] = TGM_Plugin_Activation::get_instance();
         }
     }
     if (\did_action('plugins_loaded')) {
         load_tgm_plugin_activation();
     } else {
-        \add_action( 'plugins_loaded', __NAMESPACE__ . '\load_tgm_plugin_activation');
+        \add_action('plugins_loaded', 'load_tgm_plugin_activation');
     }
 }
-if (!\function_exists('tgmpa')) {
+if (!\function_exists('CUMULUS\\Wordpress\\ProgramCPT\\tgmpa')) {
     /**
      * Helper function to register a collection of required plugins.
      *
@@ -2568,7 +2568,7 @@ if (!\class_exists('CUMULUS\\Wordpress\\ProgramCPT\\TGMPA_List_Table')) {
                 }
                 unset($slug, $name, $source);
                 // Create a new instance of TGMPA_Bulk_Installer.
-                $installer = new \CUMULUS\Wordpress\ProgramCPT\TGMPA_Bulk_Installer(new \CUMULUS\Wordpress\ProgramCPT\TGMPA_Bulk_Installer_Skin(array('url' => \esc_url_raw($this->tgmpa->get_tgmpa_url()), 'nonce' => 'bulk-' . $this->_args['plural'], 'names' => $names, 'install_type' => $install_type)));
+                $installer = new TGMPA_Bulk_Installer(new TGMPA_Bulk_Installer_Skin(array('url' => \esc_url_raw($this->tgmpa->get_tgmpa_url()), 'nonce' => 'bulk-' . $this->_args['plural'], 'names' => $names, 'install_type' => $install_type)));
                 // Wrap the install process with the appropriate HTML.
                 echo '<div class="tgmpa">', '<h2 style="font-size: 23px; font-weight: 400; line-height: 29px; margin: 0; padding: 9px 15px 4px 0;">', \esc_html(\get_admin_page_title()), '</h2>
 					<div class="update-php" style="width: 100%; height: 98%; min-height: 850px; padding-top: 1px;">';
@@ -2725,8 +2725,8 @@ if (!\class_exists('CUMULUS\\Wordpress\\ProgramCPT\\TGM_Bulk_Installer_Skin')) {
  *
  * @since 2.2.0
  */
-\add_action( 'admin_init', __NAMESPACE__ . '\tgmpa_load_bulk_installer');
-if (!\function_exists('tgmpa_load_bulk_installer')) {
+\add_action('admin_init', 'tgmpa_load_bulk_installer');
+if (!\function_exists('CUMULUS\\Wordpress\\ProgramCPT\\tgmpa_load_bulk_installer')) {
     /**
      * Load bulk installer
      */

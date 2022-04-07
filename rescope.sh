@@ -11,8 +11,7 @@ fi
 echo "Setting up composer vendors without dev"
 composer install --no-scripts --no-dev --prefer-dist
 echo "Scoping..."
-mkdir build/composer
-php-scoper add-prefix --working-dir ./ --output-dir ./build/composer --force
+php-scoper add-prefix --output-dir build/composer --force
 echo "Updating vendor_keep autoloader"
 composer dump-autoload --working-dir build/composer --classmap-authoritative
 echo "Reinstalling dev"

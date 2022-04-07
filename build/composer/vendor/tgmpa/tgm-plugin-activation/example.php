@@ -135,5 +135,5 @@ function my_theme_register_required_plugins()
         // Automatically activate plugins after installation or not.
         'message' => '',
     );
-    \tgmpa($plugins, $config);
+    tgmpa($plugins, $config);
 }

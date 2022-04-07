@@ -49,11 +49,9 @@ return [
 	// Whitelists a list of files. Unlike the other whitelist related features, this one is about completely leaving
 	// a file untouched.
 	// Paths are relative to the configuration file unless if they are already absolute
-	/*
 	'files-whitelist' => [
 		//'src/a-whitelisted-file.php',
 	],
-	*/
 
 	// When scoping PHP files, there will be scenarios where some of the code being scoped indirectly references the
 	// original namespace. These will include, for example, strings or string manipulations. PHP-Scoper has limited
@@ -70,16 +68,6 @@ return [
 				$contents = \str_replace(
 					"array('TGMPA_Utils',",
 					"array('{$prefix}\\TGMPA_Utils',",
-					$contents
-				);
-				$contents = \preg_replace(
-					"/add_action\(\s*'([^']+)',\s*'/",
-					"add_action( '$1', __NAMESPACE__ . '\\",
-					$contents
-				);
-				$contents = \str_replace(
-					'\\load_tgm_plugin_activation();',
-					'load_tgm_plugin_activation();',
 					$contents
 				);
 			}

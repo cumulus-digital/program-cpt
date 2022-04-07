@@ -21,8 +21,8 @@ namespace CUMULUS\Wordpress\ProgramCPT;
 	}
 
 	$current_term = \get_queried_object();
-	$tax          = \get_taxonomy( $current_term->taxonomy );
-	$tax_tags     = \CMLS_Base\get_category_tags( $current_term, $tax->object_type[0] . '-tag' );
+	$tax = \get_taxonomy( $current_term->taxonomy );
+	$tax_tags = \CMLS_Base\get_category_tags( $current_term, $tax->object_type[0] . '-tag' );
 
 	if ( \count( $tax_tags ) ) {
 		?>

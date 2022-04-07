@@ -44,14 +44,14 @@ namespace CUMULUS\Wordpress\ProgramCPT;
  * }
  * @return Extended_CPT
  */
-function register_extended_post_type(string $post_type, array $args = [], array $names = []) : \CUMULUS\Wordpress\ProgramCPT\Extended_CPT
+function register_extended_post_type(string $post_type, array $args = [], array $names = []) : Extended_CPT
 {
     if (!\did_action('init')) {
         \trigger_error(\esc_html__('Post types must be registered on the "init" hook.', 'extended-cpts'), \E_USER_WARNING);
     }
-    $cpt = new \CUMULUS\Wordpress\ProgramCPT\Extended_CPT($post_type, $args, $names);
+    $cpt = new Extended_CPT($post_type, $args, $names);
     if (\is_admin()) {
-        new \CUMULUS\Wordpress\ProgramCPT\Extended_CPT_Admin($cpt, $cpt->args);
+        new Extended_CPT_Admin($cpt, $cpt->args);
     }
     return $cpt;
 }
@@ -101,14 +101,14 @@ function register_extended_post_type(string $post_type, array $args = [], array 
  * }
  * @return Extended_Taxonomy
  */
-function register_extended_taxonomy(string $taxonomy, $object_type, array $args = [], array $names = []) : \CUMULUS\Wordpress\ProgramCPT\Extended_Taxonomy
+function register_extended_taxonomy(string $taxonomy, $object_type, array $args = [], array $names = []) : Extended_Taxonomy
 {
     if (!\did_action('init')) {
         \trigger_error(\esc_html__('Taxonomies must be registered on the "init" hook.', 'extended-cpts'), \E_USER_WARNING);
     }
-    $taxo = new \CUMULUS\Wordpress\ProgramCPT\Extended_Taxonomy($taxonomy, $object_type, $args, $names);
+    $taxo = new Extended_Taxonomy($taxonomy, $object_type, $args, $names);
     if (\is_admin()) {
-        new \CUMULUS\Wordpress\ProgramCPT\Extended_Taxonomy_Admin($taxo, $taxo->args);
+        new Extended_Taxonomy_Admin($taxo, $taxo->args);
     }
     return $taxo;
 }

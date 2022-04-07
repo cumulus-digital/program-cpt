@@ -39,7 +39,7 @@ use Exception;
 	try {
 		$dom = new DOMDocument();
 		$dom->loadHTML( $post->post_content );
-		$xpath   = new DOMXPath( $dom );
+		$xpath = new DOMXPath( $dom );
 		$content = $xpath->query( "//div[contains(@class,'program-content')][1]/div[contains(@class,'main-content')][1]" );
 
 		if ( ! $content->length ) {
@@ -47,11 +47,11 @@ use Exception;
 		}
 
 		$excerpt_length = \apply_filters( 'excerpt_length', 55 );
-		$excerpt_more   = \apply_filters( 'excerpt_more', ' ' . '[&hellip;]' );
-		$text           = \wp_trim_words( $content->item( 0 )->textContent, $excerpt_length, $excerpt_more );
+		$excerpt_more = \apply_filters( 'excerpt_more', ' ' . '[&hellip;]' );
+		$text = \wp_trim_words( $content->item( 0 )->textContent, $excerpt_length, $excerpt_more );
 
 		// Attempt to truncate to the nearest sentence
-		$puncs  = ['. ', '! ', '? '];
+		$puncs = ['. ', '! ', '? '];
 		$maxPos = 0;
 
 		foreach ( $puncs as $punc ) {
@@ -75,10 +75,3 @@ use Exception;
 		return $excerpt;
 	}
 }, 10, 2 );
-
-// If helper exists, disable reordering on our metaboxes
-\add_action( 'admin_init', function () {
-	if ( \function_exists( 'CMLS_Base\acfResetMetaboxesForCPT' ) ) {
-		\CMLS_Base\acfResetMetaboxesForCPT( 'program', 'group_61240bc1afe31' );
-	}
-} );
