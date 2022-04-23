@@ -10,7 +10,9 @@ use Exception;
 \defined( 'ABSPATH' ) || exit( 'No direct access allowed.' );
 
 \add_action( 'enqueue_block_assets', function () {
-	if ( ! \is_admin() ) {
+	global $pagenow;
+
+	if ( ! \is_admin() || 'widgets.php' === $pagenow ) {
 		return;
 	}
 
