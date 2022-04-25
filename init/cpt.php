@@ -210,13 +210,18 @@ class CPT {
 				|| ! $this->options['cpt']['public']
 				|| ! $query->is_main_query()
 				|| ! $query->is_search()
+				|| $query->is_post_type_archive()
+				|| $query->is_archive()
 			) {
 				return $query;
 			}
 
-			$current   = (array) $query->get( 'post_type' );
-			$current[] = $this->prefix;
-			$query->set( 'post_type', $current );
+			$current = (array) $query->get( 'post_type' );
+
+			if ( ! \in_array( $this->prefix, $current ) ) {
+				$current[] = $this->prefix;
+				$query->set( 'post_type', $current );
+			}
 
 			return $query;
 		}, 10 );
@@ -276,10 +281,16 @@ class CPT {
 			// Order them by title
 			$query->set( 'orderby', [ 'title' => 'ASC' ] );
 
-			// Exclude children from archives for this taxonomy
-			$tax_query                        = $query->tax_query->queries;
-			$tax_query[0]['include_children'] = false;
-			$query->set( 'tax_query', $tax_query );
+			// Exclude children from archives for this taxonomy,
+			// but preserve them in search.
+			if ( \is_archive() && ! \is_search() ) {
+				$tax_query = $query->tax_query->queries;
+
+				if ( \count( $tax_query ) ) {
+					$tax_query[0]['include_children'] = false;
+					$query->set( 'tax_query', $tax_query );
+				}
+			}
 		}, 1, 1 );
 
 		// Handle redirects for deeply nested categories without /category/

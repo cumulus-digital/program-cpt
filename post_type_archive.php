@@ -11,7 +11,7 @@ use function CMLS_Base\make_post_class;
 $this_term     = \get_queried_object();
 $term_children = null;
 
-if ( \is_a( $this_term, 'WP_Post_Type' ) ) {
+if ( \is_a( $this_term, 'WP_Post_Type' ) && ! \is_search() ) {
 	//$term_children_ids = \get_term_children( 0, $this_term->name . '-cat' );
 	// Necessary to go back to the DB because PublishPress Permissions may break the cache...
 	global $wpdb;
@@ -31,7 +31,7 @@ if ( \is_a( $this_term, 'WP_Post_Type' ) ) {
 }
 
 if ( ! \have_posts() || $term_children ) {
-	\CMLS_Base\BodyClasses::add( 'disable_bottom_padding' );
+	//\CMLS_Base\BodyClasses::add( 'disable_bottom_padding' );
 }
 
 cmls_get_template_part( 'archive', make_post_class(), [ 'term_children' => $term_children] );
