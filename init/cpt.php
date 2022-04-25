@@ -83,24 +83,32 @@ class CPT {
 			],
 		],
 		'category' => [
-			'public'       => true,
-			'hierarchical' => true,
-			'show_in_rest' => true,
-			'query_var'    => true,
-			'label'        => null,
-			'rewrite'      => [
+			'public'             => true,
+			'publicly_queryable' => true,
+			'show_ui'            => true,
+			'show_in_menu'       => true,
+			'show_in_nav_menus'  => true,
+			'show_in_rest'       => true,
+			'hierarchical'       => true,
+			'query_var'          => true,
+			'label'              => null,
+			'rewrite'            => [
 				'slug'         => null,
 				'hierarchical' => true,
 				'with_front'   => false,
 			],
 		],
 		'tag' => [
-			'public'       => true,
-			'hierarchical' => false,
-			'show_in_rest' => true,
-			'query_var'    => true,
-			'label'        => null,
-			'rewrite'      => [
+			'public'             => true,
+			'publicly_queryable' => true,
+			'show_ui'            => true,
+			'show_in_menu'       => true,
+			'show_in_nav_menus'  => true,
+			'show_in_rest'       => true,
+			'hierarchical'       => false,
+			'query_var'          => true,
+			'label'              => null,
+			'rewrite'            => [
 				'slug'       => null,
 				'with_front' => false,
 			],
@@ -206,7 +214,7 @@ class CPT {
 				return $query;
 			}
 
-			$current = (array) $query->get( 'post_type' );
+			$current   = (array) $query->get( 'post_type' );
 			$current[] = $this->prefix;
 			$query->set( 'post_type', $current );
 
@@ -269,7 +277,7 @@ class CPT {
 			$query->set( 'orderby', [ 'title' => 'ASC' ] );
 
 			// Exclude children from archives for this taxonomy
-			$tax_query = $query->tax_query->queries;
+			$tax_query                        = $query->tax_query->queries;
 			$tax_query[0]['include_children'] = false;
 			$query->set( 'tax_query', $tax_query );
 		}, 1, 1 );
@@ -313,7 +321,7 @@ class CPT {
 				}
 
 				// Handle links to cat slug base
-				if ( \is_term_query() ) {
+				if ( $this->isTermQuery() ) {
 					if (
 						$test_slug === $this->labels['category']['slug']
 						|| $test_slug === $this->labels['tag']['slug']
