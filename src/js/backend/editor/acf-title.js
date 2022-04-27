@@ -116,7 +116,6 @@ $(() => {
 			return;
 		}
 
-		console.log(postType);
 		if (['program', 'format'].includes(postType.slug)) {
 			// ACF display option styles
 			const editorCSS = require('./acf-title.css?raw');
