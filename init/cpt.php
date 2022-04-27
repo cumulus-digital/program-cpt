@@ -41,7 +41,7 @@ class CPT {
 			'supports'           => [
 				'title', 'editor', 'revisions', 'excerpt', 'thumbnail',
 			],
-			'capability_type' => 'page',
+			'capability_type' => 'post',
 			'map_meta_cap'    => true,
 			'menu_icon'       => 'dashicons-microphone',
 			'template'        => [
@@ -121,13 +121,15 @@ class CPT {
 		'tag'      => [],
 	];
 
+	private $capabilities;
+
 	private $cpt;
 
 	private $category;
 
 	private $tag;
 
-	public function __construct( $prefix, $options, $labels ) {
+	public function __construct( $prefix, $options, $labels, $capabilities = null ) {
 		if ( ! $prefix ) {
 			throw new Exception( 'Must provide a prefix for CPT' );
 		} else {
@@ -139,6 +141,8 @@ class CPT {
 		} else {
 			$this->labels = $labels;
 		}
+
+		$this->capabilities = $capabilities;
 
 		if ( $options && \is_array( $options ) ) {
 			$this->options = \array_replace_recursive( $this->options, $options );
@@ -172,6 +176,7 @@ class CPT {
 		$this->registerCategory();
 		$this->registerTag();
 		$this->registerPostType();
+		$this->mapCapabilities();
 	}
 
 	private function registerPostType() {
@@ -248,6 +253,20 @@ class CPT {
 		\add_filter( 'display-archive-show_excerpt', function ( $current ) {
 			return $this->returnIfOurs( false, $current, true );
 		}, 10 );
+	}
+
+	private function mapCapabilities() {
+		if ( ! $this->capabilities ) {
+			return;
+		}
+
+		foreach ( $this->capabilities as $role_name => $caps ) {
+			$role = \get_role( $role_name );
+
+			foreach ( $caps as $cap ) {
+				$role->add_cap( $cap, true );
+			}
+		}
 	}
 
 	private function registerCategory() {
@@ -551,7 +570,7 @@ class CPT {
 
 CPTs::add( 'program', new CPT(
 	'program',
-	[],
+	[ 'cpt' => ['capability_type' => ['program', 'programs']] ],
 	[
 		'cpt' => [
 			'singular' => 'Program',
@@ -568,13 +587,29 @@ CPTs::add( 'program', new CPT(
 			'plural'   => 'Program Tags',
 			'slug'     => 'tag',
 		],
+	],
+	[
+		'administrator' => [
+			'edit_programs'         => true,
+			'edit_others_programs'  => true,
+			'delete_programs'       => true,
+			'publish_programs'      => true,
+			'read_private_programs' => true,
+		],
+		'editor' => [
+			'edit_programs'         => true,
+			'edit_others_programs'  => true,
+			'delete_programs'       => true,
+			'publish_programs'      => true,
+			'read_private_programs' => true,
+		],
 	]
 ) );
 
 CPTs::add( 'format', new CPT(
 	'format',
 	[
-		'cpt' => [ 'menu_icon' => 'dashicons-megaphone' ],
+		'cpt' => [ 'menu_icon' => 'dashicons-megaphone', 'capability_type' => ['format', 'formats'] ],
 	],
 	[
 		'cpt' => [
@@ -591,6 +626,22 @@ CPTs::add( 'format', new CPT(
 			'singular' => 'Format Tag',
 			'plural'   => 'Format Tags',
 			'slug'     => 'tag',
+		],
+	],
+	[
+		'administrator' => [
+			'edit_formats'         => true,
+			'edit_others_formats'  => true,
+			'delete_formats'       => true,
+			'publish_formats'      => true,
+			'read_private_formats' => true,
+		],
+		'editor' => [
+			'edit_formats'         => true,
+			'edit_others_formats'  => true,
+			'delete_formats'       => true,
+			'publish_formats'      => true,
+			'read_private_formats' => true,
 		],
 	]
 ) );
