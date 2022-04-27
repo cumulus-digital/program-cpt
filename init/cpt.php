@@ -263,8 +263,8 @@ class CPT {
 		foreach ( $this->capabilities as $role_name => $caps ) {
 			$role = \get_role( $role_name );
 
-			foreach ( $caps as $cap ) {
-				$role->add_cap( $cap, true );
+			foreach ( $caps as $cap => $value ) {
+				$role->add_cap( $cap, $value );
 			}
 		}
 	}
