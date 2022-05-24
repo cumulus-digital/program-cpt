@@ -39,7 +39,7 @@ class CPT {
 			'dashboard_activity' => true,
 			'dashboard_glance'   => true,
 			'supports'           => [
-				'title', 'editor', 'revisions', 'excerpt', 'thumbnail',
+				'title', 'editor', 'revisions', 'excerpt', 'thumbnail', 'page-attributes',
 			],
 			'capability_type' => 'post',
 			'map_meta_cap'    => true,

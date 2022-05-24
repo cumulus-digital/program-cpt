@@ -30,7 +30,7 @@ use WP_Query;
 	$display_args = get_tax_display_args();
 
 	// This term
-	$this_term = \get_queried_object();
+	$this_term     = \get_queried_object();
 	$term_children = null;
 
 	if ( \property_exists( $this_term, 'taxonomy' ) && \is_taxonomy_hierarchical( $this_term->taxonomy ) ) {
@@ -70,6 +70,8 @@ use WP_Query;
 	$child_posts = new WP_Query( [
 		'ignore_sticky_posts' => true,
 		'posts_per_page'      => -1,
+		'orderby'             => 'menu_order title',
+		'order'               => 'ASC',
 		'tax_query'           => [
 			[
 				'taxonomy' => $child_term->taxonomy,

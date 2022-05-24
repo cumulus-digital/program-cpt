@@ -24,7 +24,7 @@ use Exception;
 	) {
 		\wp_enqueue_style( 'cmls-program-cpt-block-style', BASEURL . '/build/backend.css' );
 
-		$assets = include BASEURL . '/build/backend.asset.php';
+		$assets = include BASEPATH . '/build/backend.asset.php';
 		\wp_enqueue_script(
 			'cmls-program-cpt-backend-script',
 			BASEURL . '/build/backend.js',
