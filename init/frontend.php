@@ -24,7 +24,7 @@ namespace CUMULUS\Wordpress\ProgramCPT;
 } );
 
 \add_action( 'wp_enqueue_scripts', function () {
-	if ( \is_singular( CPTs::getKeys() ) || \is_archive( CPTs::getKeys() ) ) {
+	if ( \is_singular( CPTs::getKeys() ) || CPTs::isOurQuery() ) {
 		$assets = include BASEPATH . '/build/frontend.asset.php';
 		\wp_register_script(
 			PREFIX . '_script-frontend',
@@ -49,9 +49,9 @@ namespace CUMULUS\Wordpress\ProgramCPT;
 // Set query limit for our CPTs to infinite
 function setQueryLimitToInfinite( $query ) {
 	if (
-		! \is_admin() && $query->is_main_query() && \is_post_type_archive( CPTs::getKeys() )
+		! \is_admin() && $query->is_main_query() && CPTs::isOurQuery()
 	) {
-		$query->set( 'posts_per_page', -1 );
+		$query->set( 'posts_per_archive_page', -1 );
 	}
 
 	return $query;

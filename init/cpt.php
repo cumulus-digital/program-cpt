@@ -23,6 +23,23 @@ class CPTs {
 	public static function getKeys() {
 		return \array_keys( self::$store );
 	}
+
+	public static function isOurQuery() {
+		$CPTs = self::getKeys();
+		$ours = false;
+
+		foreach ( $CPTs as $slug ) {
+			$cpt = CPTs::get( $slug );
+
+			if ( $cpt->isOurQuery() ) {
+				$ours = true;
+
+				break;
+			}
+		}
+
+		return $ours;
+	}
 }
 
 // Generate CPTs, their category, and tags
@@ -173,8 +190,14 @@ class CPT {
 			],
 		];
 
-		$this->registerCategory();
-		$this->registerTag();
+		if ( $this->options['category'] ) {
+			$this->registerCategory();
+		}
+
+		if ( $this->options['tag'] ) {
+			$this->registerTag();
+		}
+
 		$this->registerPostType();
 		$this->mapCapabilities();
 	}
