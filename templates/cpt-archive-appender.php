@@ -59,7 +59,7 @@ use WP_Query;
 				<div class="row-container tax-child-header">
 					<h3>
 						<a href="<?php echo \get_term_link( $child_term ); ?>" title="View all <?php echo \esc_attr( \wp_strip_all_tags( $child_term->name ) ); ?>">
-							<?php echo \wp_kses( $child_term->name, ['br'] ); ?>
+							<?php echo \wp_kses_post( \apply_filters( 'single_term_title', $child_term->name ) ); ?>
 						</a>
 					</h3>
 				</div>
