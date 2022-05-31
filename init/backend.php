@@ -35,7 +35,7 @@ use Exception;
 	}
 } );
 
-// Excerpts need to pull from the main content column
+// Intercept excerpt building so that it comes from the main content column.
 \add_filter( 'get_the_excerpt', function ( $excerpt, $post ) {
 	if (
 		$post->post_excerpt
@@ -43,6 +43,10 @@ use Exception;
 		|| \count( CPTs::getKeys() ) < 1
 		|| ! \in_array( $post->post_type, CPTs::getKeys() )
 	) {
+		return $excerpt;
+	}
+
+	if ( ! $post->post_content ) {
 		return $excerpt;
 	}
 
