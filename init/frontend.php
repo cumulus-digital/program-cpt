@@ -48,14 +48,15 @@ namespace CUMULUS\Wordpress\ProgramCPT;
 
 // Set query limit for our CPTs to infinite
 function setQueryLimitToInfinite( $query ) {
-	if ( \is_admin() || ! $query->is_main_query() || ! \is_archive( CPTs::getKeys() ) ) {
-		return;
+	if (
+		! \is_admin() && $query->is_main_query() && \is_post_type_archive( CPTs::getKeys() )
+	) {
+		$query->set( 'posts_per_page', -1 );
 	}
-	$query->set( 'posts_per_page', -1 );
 
 	return $query;
 }
-\add_action( 'pre_get_posts', __NAMESPACE__ . '\setQueryLimitToInfinite' );
+\add_action( 'pre_get_posts', __NAMESPACE__ . '\setQueryLimitToInfinite', 999 );
 
 // Include our tag prepender
 include_once BASEPATH . '/templates/cpt-archive-prepender.php';
