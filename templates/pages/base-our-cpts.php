@@ -32,15 +32,19 @@ $post_class   = [
 >
 	<?php if ( $show_header ): ?>
 	<style>
+		<?php if ( $display_args ): ?>
 		article#post-<?php \the_ID(); ?> {
 			--progam-header-background-color: <?php echo $display_args['background-color']; ?>;
-			--progam-header-background-image: url('<?php echo $display_args['background-image']['url']; ?>');
+			<?php if ( $display_args['background-image'] ): ?>
+			--progam-header-background-image: url('<?php echo $$display_args['background-image']['url']; ?>');
+			<?php endif; ?>
 			--progam-header-background-position: <?php echo $display_args['background-position']; ?>;
 			--progam-header-background-repeat: <?php echo $display_args['background-repeat']; ?>;
 			--progam-header-background-size: <?php echo $display_args['background-size']; ?>;
 			--progam-header-title-color: <?php echo $display_args['title-color']; ?>;
 			--progam-header-title-shadow-opacity: <?php echo $display_args['title-shadow-opacity']; ?>;
 		}
+		<?php endif; ?>
 	</style>
 	<header class="full-width">
 		<div class="row-container">
@@ -80,10 +84,12 @@ echo \untrailingslashit( \get_term_parents_list(
 			<h5>Tags:</h5>
 			<?php
 				\the_terms(
-					\get_the_ID(),
-					$req->post_type . '-tag',
-					null, null, null
-				);
+								\get_the_ID(),
+								$req->post_type . '-tag',
+								null,
+								null,
+								null
+							);
 			?>
 		</aside>
 	<?php endif; ?>
