@@ -35,8 +35,8 @@ $post_class   = [
 		<?php if ( $display_args ): ?>
 		article#post-<?php \the_ID(); ?> {
 			--progam-header-background-color: <?php echo $display_args['background-color']; ?>;
-			<?php if ( $display_args['background-image'] ): ?>
-			--progam-header-background-image: url('<?php echo $$display_args['background-image']['url']; ?>');
+			<?php if ( $display_args['background_image'] && \array_key_exists( 'url', $display_args['background-image'] ) ): ?>
+				--progam-header-background-image: url('<?php echo $display_args['background-image']['url']; ?>');
 			<?php endif; ?>
 			--progam-header-background-position: <?php echo $display_args['background-position']; ?>;
 			--progam-header-background-repeat: <?php echo $display_args['background-repeat']; ?>;
