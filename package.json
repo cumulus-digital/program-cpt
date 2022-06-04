@@ -26,11 +26,10 @@
   "author": "vena",
   "license": "UNLICENSED",
   "devDependencies": {
-    "@wordpress/scripts": "^23.1.0",
+    "@wordpress/scripts": "^23.2.0",
     "bourbon": "^7.0.0",
     "colord": "^2.9.2",
-    "jquery": "^3.5.1",
-    "lodash": "^4.17.20"
+    "jquery": "^3.5.1"
   },
   "browserslist": [
     "last 3 versions or > 1%"

@@ -110,6 +110,7 @@
 
 		.categories {
 			font-size: 0.8rem;
+			line-height: 1.25;
 			text-shadow: 0.05em 0.05em 0.05em
 				rgba(0, 0, 0, var(--progam-header-title-shadow-opacity));
 			margin-bottom: 0.15em;
@@ -130,13 +131,13 @@
 				&::after {
 					display: inline-block;
 					content: "/";
-					margin: 0 0.25em;
-					opacity: 0.3;
+					margin: 0 0.15em;
+					opacity: 0.5;
 				}
 
 				&:last-child {
 					font-size: 1.15em;
-					opacity: 0.8;
+					opacity: 1;
 
 					&::after {
 						display: none;

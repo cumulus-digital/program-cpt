@@ -35,7 +35,7 @@ $post_class   = [
 		<?php if ( $display_args ): ?>
 		article#post-<?php \the_ID(); ?> {
 			--progam-header-background-color: <?php echo $display_args['background-color']; ?>;
-			<?php if ( $display_args['background_image'] && \array_key_exists( 'url', $display_args['background-image'] ) ): ?>
+			<?php if ( \array_key_exists( 'background_image', $display_args ) && \array_key_exists( 'url', $display_args['background-image'] ) ): ?>
 				--progam-header-background-image: url('<?php echo $display_args['background-image']['url']; ?>');
 			<?php endif; ?>
 			--progam-header-background-position: <?php echo $display_args['background-position']; ?>;
@@ -54,8 +54,9 @@ $post_class   = [
 			<div class="title">
 
 				<?php if ( $categories ): ?>
+					<div class="categories">
 					<?php foreach ( $categories as $category ): ?>
-						<div class="categories">
+						<div class="category">
 							<?php
 echo \untrailingslashit( \get_term_parents_list(
 	$category->term_id,
@@ -68,6 +69,7 @@ echo \untrailingslashit( \get_term_parents_list(
 							?>
 						</div>
 					<?php endforeach; ?>
+					</div>
 				<?php endif; ?>
 
 				<h1><?php \the_title(); ?></h1>
