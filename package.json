@@ -26,10 +26,11 @@
   "author": "vena",
   "license": "UNLICENSED",
   "devDependencies": {
-    "@wordpress/scripts": "^23.2.0",
+    "@wordpress/scripts": "^23.3.0",
     "bourbon": "^7.0.0",
     "colord": "^2.9.2",
-    "jquery": "^3.5.1"
+    "jquery": "^3.5.1",
+    "prettier": "npm:wp-prettier@^2.6.2"
   },
   "browserslist": [
     "last 3 versions or > 1%"

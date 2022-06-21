@@ -1,5 +1,6 @@
 {
 	"intelephense.environment.includePaths": [
-		"../../themes/wp-cmls-base"
+		"../../themes/wp-cmls-base",
+		"../wp-cmls-base"
 	]
 }

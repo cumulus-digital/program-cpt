@@ -52,7 +52,8 @@ use Exception;
 
 	// Pull a new excerpt out of the .main-content div
 	try {
-		$dom = new DOMDocument();
+		$dom        = new DOMDocument();
+		$use_errors = \libxml_use_internal_errors( true );
 		$dom->loadHTML( $post->post_content );
 		$xpath   = new DOMXPath( $dom );
 		$content = $xpath->query( "//div[contains(@class,'program-content')][1]/div[contains(@class,'main-content')][1]" );
@@ -84,6 +85,8 @@ use Exception;
 		// Update the post with this generated excerpt so we don't have to keep doing this...
 		//$post->post_excerpt = $text;
 		//\wp_update_post( $post );
+
+		\libxml_use_internal_errors( $use_errors );
 
 		return $text;
 	} catch ( Exception $e ) {
