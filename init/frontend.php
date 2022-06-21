@@ -46,20 +46,22 @@ namespace CUMULUS\Wordpress\ProgramCPT;
 	}
 } );
 
-// Set query limit for our CPTs to infinite
-function setQueryLimitToInfinite( $query ) {
+function alterQuerySettingsForPostType( $query ) {
 	if (
 		! \is_admin() && $query->is_main_query() && CPTs::isOurQuery()
 	) {
+
+		// Set query limit for our CPTs to infinite
 		$query->set( 'posts_per_archive_page', -1 );
+
+		// Always order by menu_order and title
+		$query->set( 'orderby', 'menu_order title' );
+		$query->set( 'order', 'ASC' );
 	}
 
 	return $query;
 }
-\add_action( 'pre_get_posts', __NAMESPACE__ . '\setQueryLimitToInfinite', 999 );
-
-// Include our tag prepender
-include_once BASEPATH . '/templates/cpt-archive-prepender.php';
+\add_action( 'pre_get_posts', __NAMESPACE__ . '\alterQuerySettingsForPostType', 999 );
 
 // Our category appender
 include_once BASEPATH . '/templates/cpt-archive-appender.php';
