@@ -46,9 +46,24 @@ use WP_Query;
 				'hide_empty' => true,
 			] );
 		}
+
+		$tag_taxes = \array_map(
+			function ( $str ) {
+				return $str . '-tag';
+			},
+			CPTs::getKeys()
+		);
+
+		$is_tag_query = false;
+
+		foreach ( $tag_taxes as $tag_tax ) {
+			if ( ! empty( $_GET[$tag_tax] ) ) {
+				$is_tag_query = true;
+			}
+		}
 	} ?>
 
-	<?php if ( $term_children && ! tax_query_includes_children() ): ?>
+	<?php if ( $term_children && ( ! tax_query_includes_children() || $is_tag_query ) ): ?>
 
 		<!-- Term children injected from CPT plugin -->
 		<div class="tax-children">
@@ -67,20 +82,37 @@ use WP_Query;
 <?php
 	\wp_reset_postdata();
 
+	$tax_query = [
+		'relation' => 'AND',
+		[
+			'taxonomy' => $child_term->taxonomy,
+			//'field'            => 'term_id',
+			'terms'            => $child_term->term_id,
+			'include_children' => false,
+		],
+	];
+
+	foreach ( $tag_taxes as $tag_tax ) {
+		if ( ! empty( $_GET[$tag_tax] ) ) {
+			$tax_query[] = [
+				'taxonomy' => $tag_tax,
+				'field'    => 'slug',
+				'terms'    => $_GET[$tag_tax],
+			];
+		}
+	}
+
 	$child_posts = new WP_Query( [
 		'ignore_sticky_posts' => true,
 		'posts_per_page'      => -1,
 		'orderby'             => 'menu_order title',
 		'order'               => 'ASC',
-		'tax_query'           => [
-			[
-				'taxonomy' => $child_term->taxonomy,
-				//'field'            => 'term_id',
-				'terms'            => $child_term->term_id,
-				'include_children' => false,
-			],
-		],
+		'tax_query'           => $tax_query,
 	] );
+
+	echo '<pre>';
+	//\var_dump( $child_posts );
+	echo '</pre>';
 
 	cmls_get_template_part(
 		'templates/archives/post_list',
@@ -106,3 +138,49 @@ use WP_Query;
 
 	<?php
 }, 99 );
+
+/*
+ * Append a list of tags in these categories and their children
+ */
+\add_action( 'cmls_template-archive-after_content', function () {
+	$taxes = \array_map(
+		function ( $str ) {
+			return $str . '-cat';
+		},
+		CPTs::getKeys()
+	);
+
+	if ( ! \is_tax( $taxes ) ) {
+		return;
+	}
+
+	$current_term      = \get_queried_object();
+	$current_term_link = \get_category_link( $current_term );
+	$tax               = \get_taxonomy( $current_term->taxonomy );
+	$tax_tags          = \CMLS_Base\get_category_tags( $current_term, $tax->object_type[0] . '-tag', true );
+
+	if ( \count( $tax_tags ) ) {
+		\usort( $tax_tags, function ( $tag1, $tag2 ) {
+			return $tag1->count < $tag2->count ? 1 : -1;
+		} ); ?>
+
+		<aside class="row tags">
+			<div class="row-container">
+				Tags:
+				<ul>
+					<?php foreach ( $tax_tags as $tag ): ?>
+						<li>
+							<a
+								href="<?php echo \esc_url( "{$current_term_link}?{$tag->taxonomy}={$tag->slug}" ); ?>"
+							>
+								<?php echo \esc_html( $tag->name ); ?>
+							</a>
+						</li>
+					<?php endforeach; ?>
+				</ul>
+			</div>
+		</aside>
+
+		<?php
+	}
+}, 999 );
