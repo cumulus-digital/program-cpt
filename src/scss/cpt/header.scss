@@ -126,7 +126,7 @@
 				color: inherit;
 				white-space: nowrap;
 				word-break: break-word;
-				opacity: 0.65;
+				opacity: 0.75;
 
 				&::after {
 					display: inline-block;
@@ -136,7 +136,7 @@
 				}
 
 				&:last-child {
-					font-size: 1.15em;
+					font-size: 1.2em;
 					opacity: 1;
 
 					&::after {
