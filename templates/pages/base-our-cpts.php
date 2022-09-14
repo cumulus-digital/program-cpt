@@ -49,7 +49,7 @@ $post_class   = [
 	<header class="full-width">
 		<div class="row-container">
 
-			<?php cmls_get_template_part( 'templates/pages/featured_image', null, ['force_featured_image' => true] ); ?>
+			<?php cmls_get_template_part( 'templates/pages/featured_image', null, ['force_featured_image' => true, 'disable_lazyload' => true] ); ?>
 
 			<div class="title">
 
@@ -66,7 +66,7 @@ echo \untrailingslashit( \get_term_parents_list(
 		'separator' => null,
 	]
 ) );
-							?>
+						?>
 						</div>
 					<?php endforeach; ?>
 					</div>
@@ -86,13 +86,13 @@ echo \untrailingslashit( \get_term_parents_list(
 			<h5>Tags:</h5>
 			<?php
 				\the_terms(
-								\get_the_ID(),
-								$req->post_type . '-tag',
-								null,
-								null,
-								null
-							);
-			?>
+							\get_the_ID(),
+							$req->post_type . '-tag',
+							null,
+							null,
+							null
+						);
+		?>
 		</aside>
 	<?php endif; ?>
 
