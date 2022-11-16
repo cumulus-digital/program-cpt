@@ -4,8 +4,8 @@
 
 $loader = require_once __DIR__.'/autoload.php';
 
-// Aliases for the whitelisted classes. For more information see:
-// https://github.com/humbug/php-scoper/blob/master/README.md#class-whitelisting
+// Exposed classes. For more information see:
+// https://github.com/humbug/php-scoper/blob/master/docs/configuration.md#exposing-classes
 if (!class_exists('Extended_Taxonomy_Admin', false) && !interface_exists('Extended_Taxonomy_Admin', false) && !trait_exists('Extended_Taxonomy_Admin', false)) {
     spl_autoload_call('CUMULUS\Wordpress\ProgramCPT\Extended_Taxonomy_Admin');
 }
@@ -57,56 +57,8 @@ if (!class_exists('TGMPA_Bulk_Installer_Skin', false) && !interface_exists('TGMP
 if (!class_exists('TGMPA_Utils', false) && !interface_exists('TGMPA_Utils', false) && !trait_exists('TGMPA_Utils', false)) {
     spl_autoload_call('CUMULUS\Wordpress\ProgramCPT\TGMPA_Utils');
 }
-if (!class_exists('ComposerAutoloaderInit095b39469d63aaa386d4213dc17843d2', false) && !interface_exists('ComposerAutoloaderInit095b39469d63aaa386d4213dc17843d2', false) && !trait_exists('ComposerAutoloaderInit095b39469d63aaa386d4213dc17843d2', false)) {
-    spl_autoload_call('CUMULUS\Wordpress\ProgramCPT\ComposerAutoloaderInit095b39469d63aaa386d4213dc17843d2');
-}
-
-// Functions whitelisting. For more information see:
-// https://github.com/humbug/php-scoper/blob/master/README.md#functions-whitelisting
-if (!function_exists('register_extended_post_type')) {
-    function register_extended_post_type() {
-        return \CUMULUS\Wordpress\ProgramCPT\register_extended_post_type(...func_get_args());
-    }
-}
-if (!function_exists('register_extended_taxonomy')) {
-    function register_extended_taxonomy() {
-        return \CUMULUS\Wordpress\ProgramCPT\register_extended_taxonomy(...func_get_args());
-    }
-}
-if (!function_exists('p2p_type')) {
-    function p2p_type() {
-        return \CUMULUS\Wordpress\ProgramCPT\p2p_type(...func_get_args());
-    }
-}
-if (!function_exists('p2p_connection_exists')) {
-    function p2p_connection_exists() {
-        return \CUMULUS\Wordpress\ProgramCPT\p2p_connection_exists(...func_get_args());
-    }
-}
-if (!function_exists('load_tgm_plugin_activation')) {
-    function load_tgm_plugin_activation() {
-        return \CUMULUS\Wordpress\ProgramCPT\load_tgm_plugin_activation(...func_get_args());
-    }
-}
-if (!function_exists('tgmpa')) {
-    function tgmpa() {
-        return \CUMULUS\Wordpress\ProgramCPT\tgmpa(...func_get_args());
-    }
-}
-if (!function_exists('tgmpa_load_bulk_installer')) {
-    function tgmpa_load_bulk_installer() {
-        return \CUMULUS\Wordpress\ProgramCPT\tgmpa_load_bulk_installer(...func_get_args());
-    }
-}
-if (!function_exists('my_theme_register_required_plugins')) {
-    function my_theme_register_required_plugins() {
-        return \CUMULUS\Wordpress\ProgramCPT\my_theme_register_required_plugins(...func_get_args());
-    }
-}
-if (!function_exists('composerRequire095b39469d63aaa386d4213dc17843d2')) {
-    function composerRequire095b39469d63aaa386d4213dc17843d2() {
-        return \CUMULUS\Wordpress\ProgramCPT\composerRequire095b39469d63aaa386d4213dc17843d2(...func_get_args());
-    }
+if (!class_exists('ComposerAutoloaderInit8348f6bc49484611b269a8e31daf15c4', false) && !interface_exists('ComposerAutoloaderInit8348f6bc49484611b269a8e31daf15c4', false) && !trait_exists('ComposerAutoloaderInit8348f6bc49484611b269a8e31daf15c4', false)) {
+    spl_autoload_call('CUMULUS\Wordpress\ProgramCPT\ComposerAutoloaderInit8348f6bc49484611b269a8e31daf15c4');
 }
 
 return $loader;

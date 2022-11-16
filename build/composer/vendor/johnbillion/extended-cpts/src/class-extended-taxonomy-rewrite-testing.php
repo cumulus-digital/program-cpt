@@ -3,13 +3,13 @@
 declare (strict_types=1);
 namespace CUMULUS\Wordpress\ProgramCPT;
 
-class Extended_Taxonomy_Rewrite_Testing extends Extended_Rewrite_Testing
+class Extended_Taxonomy_Rewrite_Testing extends \CUMULUS\Wordpress\ProgramCPT\Extended_Rewrite_Testing
 {
     /**
      * @var Extended_Taxonomy
      */
     public $taxo;
-    public function __construct(Extended_Taxonomy $taxo)
+    public function __construct(\CUMULUS\Wordpress\ProgramCPT\Extended_Taxonomy $taxo)
     {
         $this->taxo = $taxo;
     }

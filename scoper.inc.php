@@ -49,9 +49,9 @@ return [
 	// Whitelists a list of files. Unlike the other whitelist related features, this one is about completely leaving
 	// a file untouched.
 	// Paths are relative to the configuration file unless if they are already absolute
-	'files-whitelist' => [
-		//'src/a-whitelisted-file.php',
-	],
+	//'files-whitelist' => [
+	//'src/a-whitelisted-file.php',
+	//],
 
 	// When scoping PHP files, there will be scenarios where some of the code being scoped indirectly references the
 	// original namespace. These will include, for example, strings or string manipulations. PHP-Scoper has limited
@@ -114,4 +114,7 @@ return [
 		\array_map( 'strtolower', $wp_functions )
 	),
 	'exclude-constants' => $wp_consts,
+	'exclude-files'     => [
+		'vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php',
+	],
 ];

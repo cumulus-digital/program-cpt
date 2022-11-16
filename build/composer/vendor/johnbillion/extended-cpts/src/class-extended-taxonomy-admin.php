@@ -43,7 +43,7 @@ class Extended_Taxonomy_Admin
      * @param Extended_Taxonomy $taxo An extended taxonomy object.
      * @param array             $args Optional. The admin arguments.
      */
-    public function __construct(Extended_Taxonomy $taxo, array $args = [])
+    public function __construct(\CUMULUS\Wordpress\ProgramCPT\Extended_Taxonomy $taxo, array $args = [])
     {
         $this->taxo = $taxo;
         # Merge our args with the defaults:
@@ -316,7 +316,7 @@ class Extended_Taxonomy_Admin
     public function meta_box_radio(\WP_Post $post, array $meta_box)
     {
         require_once __DIR__ . '/class-walker-extendedtaxonomyradios.php';
-        $walker = new Walker_ExtendedTaxonomyRadios();
+        $walker = new \CUMULUS\Wordpress\ProgramCPT\Walker_ExtendedTaxonomyRadios();
         $this->do_meta_box($post, $walker, \true, 'checklist');
     }
     /**
@@ -330,7 +330,7 @@ class Extended_Taxonomy_Admin
     public function meta_box_dropdown(\WP_Post $post, array $meta_box)
     {
         require_once __DIR__ . '/class-walker-extendedtaxonomydropdown.php';
-        $walker = new Walker_ExtendedTaxonomyDropdown();
+        $walker = new \CUMULUS\Wordpress\ProgramCPT\Walker_ExtendedTaxonomyDropdown();
         $this->do_meta_box($post, $walker, \true, 'dropdown');
     }
     /**
@@ -414,7 +414,7 @@ class Extended_Taxonomy_Admin
                 # Standard WP Walker_Category_Checklist does not cut it
                 if (!$walker) {
                     require_once __DIR__ . '/class-walker-extendedtaxonomycheckboxes.php';
-                    $walker = new Walker_ExtendedTaxonomyCheckboxes();
+                    $walker = new \CUMULUS\Wordpress\ProgramCPT\Walker_ExtendedTaxonomyCheckboxes();
                 }
                 # Output the terms:
                 \wp_terms_checklist($post->ID, ['taxonomy' => $taxonomy, 'walker' => $walker, 'selected_cats' => $selected, 'checked_ontop' => $this->args['checked_ontop']]);

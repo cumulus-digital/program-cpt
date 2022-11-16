@@ -51,7 +51,7 @@ class Extended_CPT_Admin
      * @param Extended_CPT $cpt  An extended post type object.
      * @param array        $args Optional. The post type arguments.
      */
-    public function __construct(Extended_CPT $cpt, array $args = [])
+    public function __construct(\CUMULUS\Wordpress\ProgramCPT\Extended_CPT $cpt, array $args = [])
     {
         $this->cpt = $cpt;
         # Merge our args with the defaults:
@@ -243,7 +243,7 @@ class Extended_CPT_Admin
                     continue;
                 }
                 require_once __DIR__ . '/class-walker-extendedtaxonomydropdown.php';
-                $walker = new Walker_ExtendedTaxonomyDropdown(['field' => 'slug']);
+                $walker = new \CUMULUS\Wordpress\ProgramCPT\Walker_ExtendedTaxonomyDropdown(['field' => 'slug']);
                 # If we haven't specified a title, use the all_items label from the taxonomy:
                 if (!isset($filter['title'])) {
                     $filter['title'] = $tax->labels->all_items;
@@ -461,7 +461,7 @@ class Extended_CPT_Admin
         if (empty($wp_query->query['post_type']) || !\in_array($this->cpt->post_type, (array) $wp_query->query['post_type'], \true)) {
             return;
         }
-        $vars = Extended_CPT::get_filter_vars($wp_query->query, $this->cpt->args['admin_filters'], $this->cpt->post_type);
+        $vars = \CUMULUS\Wordpress\ProgramCPT\Extended_CPT::get_filter_vars($wp_query->query, $this->cpt->args['admin_filters'], $this->cpt->post_type);
         if (empty($vars)) {
             return;
         }
@@ -486,7 +486,7 @@ class Extended_CPT_Admin
         if (empty($wp_query->query['post_type']) || !\in_array($this->cpt->post_type, (array) $wp_query->query['post_type'], \true)) {
             return;
         }
-        $sort = Extended_CPT::get_sort_field_vars($wp_query->query, $this->cpt->args['admin_cols']);
+        $sort = \CUMULUS\Wordpress\ProgramCPT\Extended_CPT::get_sort_field_vars($wp_query->query, $this->cpt->args['admin_cols']);
         if (empty($sort)) {
             return;
         }
@@ -506,7 +506,7 @@ class Extended_CPT_Admin
         if (empty($wp_query->query['post_type']) || !\in_array($this->cpt->post_type, (array) $wp_query->query['post_type'], \true)) {
             return $clauses;
         }
-        $sort = Extended_CPT::get_sort_taxonomy_clauses($clauses, $wp_query->query, $this->cpt->args['admin_cols']);
+        $sort = \CUMULUS\Wordpress\ProgramCPT\Extended_CPT::get_sort_taxonomy_clauses($clauses, $wp_query->query, $this->cpt->args['admin_cols']);
         if (empty($sort)) {
             return $clauses;
         }
@@ -678,7 +678,7 @@ ICONCSS;
                 if (isset($col['cap']) && !\current_user_can($col['cap'])) {
                     continue;
                 }
-                if (isset($col['connection']) && !\function_exists('CUMULUS\\Wordpress\\ProgramCPT\\p2p_type')) {
+                if (isset($col['connection']) && !\function_exists('p2p_type')) {
                     continue;
                 }
                 if (isset($col['title_cb'])) {
@@ -899,7 +899,7 @@ ICONCSS;
     public function col_connection(string $connection, array $args)
     {
         global $post, $wp_query;
-        if (!\function_exists('CUMULUS\\Wordpress\\ProgramCPT\\p2p_type')) {
+        if (!\function_exists('p2p_type')) {
             return;
         }
         if (!$this->p2p_connection_exists($connection)) {
@@ -919,7 +919,7 @@ ICONCSS;
             $field .= \sanitize_title('_' . $args['field'] . '_' . $args['value']);
         }
         if (!isset($_post->{$field})) {
-            $type = p2p_type($connection);
+            $type = \p2p_type($connection);
             if ($type) {
                 $type->each_connected([$_post], $meta, $field);
             } else {
@@ -1050,10 +1050,10 @@ ICONCSS;
             return \ucwords(\trim(\str_replace(['_', '-'], ' ', $item['meta_key'])));
         } elseif (isset($item['connection']) && isset($item['field']) && isset($item['value'])) {
             $fallback = \ucwords(\trim(\str_replace(['_', '-'], ' ', $item['value'])));
-            if (!\function_exists('CUMULUS\\Wordpress\\ProgramCPT\\p2p_type') || !$this->p2p_connection_exists($item['connection'])) {
+            if (!\function_exists('p2p_type') || !$this->p2p_connection_exists($item['connection'])) {
                 return $fallback;
             }
-            $ctype = p2p_type($item['connection']);
+            $ctype = \p2p_type($item['connection']);
             if (!$ctype) {
                 return $fallback;
             }
@@ -1066,8 +1066,8 @@ ICONCSS;
             }
             return $fallback;
         } elseif (isset($item['connection'])) {
-            if (\function_exists('CUMULUS\\Wordpress\\ProgramCPT\\p2p_type') && $this->p2p_connection_exists($item['connection'])) {
-                $ctype = p2p_type($item['connection']);
+            if (\function_exists('p2p_type') && $this->p2p_connection_exists($item['connection'])) {
+                $ctype = \p2p_type($item['connection']);
                 if ($ctype) {
                     $other = 'from' === $ctype->direction_from_types('post', $this->cpt->post_type) ? 'to' : 'from';
                     return $ctype->side[$other]->get_title();
@@ -1089,7 +1089,7 @@ ICONCSS;
     protected function p2p_connection_exists(string $connection) : bool
     {
         if (!isset($this->connection_exists[$connection])) {
-            $this->connection_exists[$connection] = p2p_connection_exists($connection);
+            $this->connection_exists[$connection] = \p2p_connection_exists($connection);
         }
         return $this->connection_exists[$connection];
     }

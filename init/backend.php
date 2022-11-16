@@ -3,6 +3,7 @@
 namespace CUMULUS\Wordpress\ProgramCPT;
 
 use DOMDocument;
+use DOMProcessingInstruction;
 use DOMXPath;
 use Exception;
 
@@ -37,8 +38,11 @@ use Exception;
 
 // Intercept excerpt building so that it comes from the main content column.
 \add_filter( 'get_the_excerpt', function ( $excerpt, $post ) {
+	// If it's one of our CPTs and has an excerpt, return that.
 	if (
-		$post->post_excerpt
+		(
+			$post->post_excerpt && \mb_strlen( $post->post_excerpt )
+		)
 		|| ! \class_exists( __NAMESPACE__ . '\\CPTs' )
 		|| \count( CPTs::getKeys() ) < 1
 		|| ! \in_array( $post->post_type, CPTs::getKeys() )
@@ -46,15 +50,32 @@ use Exception;
 		return $excerpt;
 	}
 
-	if ( ! $post->post_content ) {
+	if ( ! $post->post_content || \mb_strlen( $post->post_content ) < 1 ) {
 		return $excerpt;
 	}
 
 	// Pull a new excerpt out of the .main-content div
 	try {
-		$dom        = new DOMDocument();
 		$use_errors = \libxml_use_internal_errors( true );
-		$dom->loadHTML( $post->post_content );
+		$dom        = new DOMDocument();
+
+		$raw_content = $post->post_content;
+
+		if ( \mb_stripos( $post->post_content, '<?xml' ) === false ) {
+			$raw_content = '<?xml encoding="utf-8" ?>' . $post->post_content;
+		}
+
+		@$dom->loadHTML( $raw_content );
+
+		foreach ( $dom->childNodes as $item ) {
+			if ( $item instanceof DOMProcessingInstruction ) {
+				$dom->removeChild( $item );
+
+				break;
+			}
+		}
+		$dom->encoding = 'UTF-8';
+
 		$xpath   = new DOMXPath( $dom );
 		$content = $xpath->query( "//div[contains(@class,'program-content')][1]/div[contains(@class,'main-content')][1]" );
 
