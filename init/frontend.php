@@ -38,7 +38,7 @@ namespace CUMULUS\Wordpress\ProgramCPT;
 		\wp_register_style(
 			PREFIX . '_style',
 			BASEURL . '/build/frontend.css',
-			[], //array(PREFIX . '_customizer_vars'),
+			array(), // array(PREFIX . '_customizer_vars'),
 			null,
 			'all'
 		);
@@ -48,20 +48,23 @@ namespace CUMULUS\Wordpress\ProgramCPT;
 
 function alterQuerySettingsForPostType( $query ) {
 	if (
-		! \is_admin() && $query->is_main_query() && CPTs::isOurQuery()
+		! \is_admin() && CPTs::isOurQuery()
 	) {
-
 		// Set query limit for our CPTs to infinite
 		$query->set( 'posts_per_archive_page', -1 );
 
 		// Always order by menu_order and title
-		$query->set( 'orderby', 'menu_order title' );
-		$query->set( 'order', 'ASC' );
+		// $query->set( 'orderby', 'menu_order title' );
+		// $query->set( 'order', 'ASC' );
+		$query->set( 'orderby', array(
+			'menu_order' => 'asc',
+			'title'      => 'asc',
+		) );
 	}
 
 	return $query;
 }
-\add_action( 'pre_get_posts', __NAMESPACE__ . '\alterQuerySettingsForPostType', 999 );
+\add_action( 'pre_get_posts', __NAMESPACE__ . '\alterQuerySettingsForPostType', \PHP_INT_MAX );
 
 // Our category appender
 include_once BASEPATH . '/templates/cpt-archive-appender.php';
