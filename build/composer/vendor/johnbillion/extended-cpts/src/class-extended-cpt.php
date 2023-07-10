@@ -555,7 +555,7 @@ class Extended_CPT
     {
         require_once __DIR__ . '/class-extended-rewrite-testing.php';
         require_once __DIR__ . '/class-extended-cpt-rewrite-testing.php';
-        $extended = new \CUMULUS\Wordpress\ProgramCPT\Extended_CPT_Rewrite_Testing($this);
+        $extended = new Extended_CPT_Rewrite_Testing($this);
         return \array_merge($tests, $extended->get_tests());
     }
     /**
@@ -628,7 +628,7 @@ class Extended_CPT
         if (\taxonomy_exists($taxonomy)) {
             \register_taxonomy_for_object_type($taxonomy, $this->post_type);
         } else {
-            \register_extended_taxonomy($taxonomy, $this->post_type, $args, $names);
+            register_extended_taxonomy($taxonomy, $this->post_type, $args, $names);
         }
         return \get_taxonomy($taxonomy);
     }

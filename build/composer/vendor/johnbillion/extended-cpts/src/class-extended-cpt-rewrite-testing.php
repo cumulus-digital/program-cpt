@@ -6,13 +6,13 @@ namespace CUMULUS\Wordpress\ProgramCPT;
 /**
  * @codeCoverageIgnore
  */
-class Extended_CPT_Rewrite_Testing extends \CUMULUS\Wordpress\ProgramCPT\Extended_Rewrite_Testing
+class Extended_CPT_Rewrite_Testing extends Extended_Rewrite_Testing
 {
     /**
      * @var Extended_CPT
      */
     public $cpt;
-    public function __construct(\CUMULUS\Wordpress\ProgramCPT\Extended_CPT $cpt)
+    public function __construct(Extended_CPT $cpt)
     {
         $this->cpt = $cpt;
     }

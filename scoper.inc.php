@@ -85,11 +85,13 @@ return [
 	// that this does not work with functions or constants neither with classes belonging to the global namespace.
 	//
 	// Fore more see https://github.com/humbug/php-scoper#whitelist
+	/*
 	'whitelist' => \array_merge( $wp_functions, $wp_consts, $wp_classes, [
 		// 'PHPUnit\Framework\TestCase',   // A specific class
 		// 'PHPUnit\Framework\*',          // The whole namespace
 		// '*',                            // Everything
 	] ),
+	*/
 
 	// If `true` then the user defined constants belonging to the global namespace will not be prefixed.
 	//

@@ -1,5 +1,7 @@
 .archive.tax-program-cat,
-.archive.tax-format-cat {
+.archive.tax-format-cat,
+.archive.post-type-archive-program,
+.archive.archive.post-type-archive-format {
 	.row.tags {
 		font-size: 0.75em;
 		a {
@@ -21,6 +23,16 @@
 		.row-container {
 			@include tags;
 			justify-content: left;
+		}
+	}
+	.row[class*="level-"]:not(.level-1) {
+		border-left: 4px solid #eee;
+		padding-left: 1em;
+		margin-bottom: 0;
+		padding-bottom: 1.5em;
+
+		&:last-child {
+			padding-bottom: 0;
 		}
 	}
 }
