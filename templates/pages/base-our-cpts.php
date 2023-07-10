@@ -11,7 +11,7 @@ use function CMLS_Base\cmls_get_template_part;
 
 $req = \get_queried_object();
 
-$display_args = \get_field( 'field_612d7a1f9df36' );
+$display_args = (array) \get_field( 'field_612d7a1f9df36' );
 $show_header  = \get_field( 'field_612ec3547ecb5' );
 $categories   = \get_the_terms( \get_the_ID(), $req->post_type . '-cat' );
 $tags         = \get_the_terms( \get_the_ID(), $req->post_type . '-tag' );
@@ -35,9 +35,11 @@ $post_class   = [
 		<?php if ( $display_args ): ?>
 		article#post-<?php \the_ID(); ?> {
 			--progam-header-background-color: <?php echo $display_args['background-color']; ?>;
+
 			<?php if ( \array_key_exists( 'background_image', $display_args ) && \array_key_exists( 'url', $display_args['background-image'] ) ): ?>
 				--progam-header-background-image: url('<?php echo $display_args['background-image']['url']; ?>');
 			<?php endif; ?>
+
 			--progam-header-background-position: <?php echo $display_args['background-position']; ?>;
 			--progam-header-background-repeat: <?php echo $display_args['background-repeat']; ?>;
 			--progam-header-background-size: <?php echo $display_args['background-size']; ?>;
@@ -86,12 +88,12 @@ echo \untrailingslashit( \get_term_parents_list(
 			<h5>Tags:</h5>
 			<?php
 				\the_terms(
-							\get_the_ID(),
-							$req->post_type . '-tag',
-							null,
-							null,
-							null
-						);
+					\get_the_ID(),
+					$req->post_type . '-tag',
+					null,
+					null,
+					null
+				);
 		?>
 		</aside>
 	<?php endif; ?>

@@ -25,13 +25,17 @@ if ( \is_a( $this_term, 'WP_Post_Type' ) && ! \is_search() ) {
 		] );
 	}
 
+	/*
 	global $wp_query;
 	$wp_query->posts      = null;
 	$wp_query->post_count = 0;
+	*/
 }
 
+/*
 if ( ! \have_posts() || $term_children ) {
 	//\CMLS_Base\BodyClasses::add( 'disable_bottom_padding' );
 }
+*/
 
 cmls_get_template_part( 'archive', make_post_class(), [ 'term_children' => $term_children] );
