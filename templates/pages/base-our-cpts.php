@@ -1,6 +1,6 @@
 <?php
 /**
- * Program page template
+ * Program page template.
  */
 
 namespace CUMULUS\Wordpress\ProgramCPT;
@@ -11,18 +11,18 @@ use function CMLS_Base\cmls_get_template_part;
 
 $req = \get_queried_object();
 
-$display_args = (array) \get_field( 'field_612d7a1f9df36' );
-$show_header  = \get_field( 'field_612ec3547ecb5' );
+$display_args = (array) get_field( 'field_612d7a1f9df36' );
+$show_header  = get_field( 'field_612ec3547ecb5' );
 $categories   = \get_the_terms( \get_the_ID(), $req->post_type . '-cat' );
 $tags         = \get_the_terms( \get_the_ID(), $req->post_type . '-tag' );
-$post_class   = [
+$post_class   = array(
 	$cpt,
 	'cmls-program-cpt',
 	( $show_header ) ? 'display-header' : 'hide-header',
 	( $display_args['background-color'] || $display_args['background-image'] )
 		? 'has-header-background' : 'no-header-background',
 	\has_post_thumbnail() ? 'has-featured-image' : 'no-featured-image',
-];
+);
 ?>
 
 <!-- Template from CPT plugin -->
@@ -51,7 +51,7 @@ $post_class   = [
 	<header class="full-width">
 		<div class="row-container">
 
-			<?php cmls_get_template_part( 'templates/pages/featured_image', null, ['force_featured_image' => true, 'disable_lazyload' => true] ); ?>
+			<?php cmls_get_template_part( 'templates/pages/featured_image', null, array( 'force_featured_image' => true, 'disable_lazyload' => true ) ); ?>
 
 			<div class="title">
 
@@ -60,14 +60,14 @@ $post_class   = [
 					<?php foreach ( $categories as $category ): ?>
 						<div class="category">
 							<?php
-echo \untrailingslashit( \get_term_parents_list(
-	$category->term_id,
-	$category->taxonomy,
-	[
-		'inclusive' => true,
-		'separator' => null,
-	]
-) );
+							echo \untrailingslashit( \get_term_parents_list(
+								$category->term_id,
+								$category->taxonomy,
+								array(
+									'inclusive' => true,
+									'separator' => null,
+								)
+							) );
 						?>
 						</div>
 					<?php endforeach; ?>

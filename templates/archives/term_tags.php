@@ -1,6 +1,6 @@
 <?php
 /**
- * Category archives to show posts by sub-category.
+ * Displays links for tags in the current category/cpt archive.
  */
 
 namespace CUMULUS\Wordpress\ProgramCPT;

@@ -10,25 +10,31 @@ namespace CUMULUS\Wordpress\ProgramCPT;
 
 use function CMLS_Base\tax_query_includes_children;
 
-// For our base-level CPT archives, only show posts that aren't in a category
 \add_action( 'pre_get_posts', function ( $q ) {
 	if (
 		! \is_admin()
 		&& ! \is_search()
 		&& $q->is_main_query()
-		&& $q->is_post_type_archive( CPTs::getKeys() )
 	) {
-		$tax_query = \array_map(
-			function ( $cpt ) {
-				return array(
-					'taxonomy' => "{$cpt}-cat",
-					'operator' => 'NOT EXISTS',
-				);
-			},
-			CPTs::getKeys()
-		);
+		// For our base-level CPT archives, only show posts that aren't in a category
+		if ( $q->is_post_type_archive( CPTs::getKeys() ) && ! \is_tax() ) {
+			$tax_query = \array_map(
+				function ( $cpt ) {
+					return array(
+						'taxonomy' => "{$cpt}-cat",
+						'operator' => 'NOT EXISTS',
+					);
+				},
+				CPTs::getKeys()
+			);
 
-		$q->set( 'tax_query', $tax_query );
+			$original_tax_query = $q->get( 'tax_query' );
+			if ( \is_array( $original_tax_query ) ) {
+				$tax_query = \array_merge( $original_tax_query, $tax_query );
+			}
+
+			$q->set( 'tax_query', $tax_query );
+		}
 	}
 
 	return $q;
@@ -40,7 +46,34 @@ use function CMLS_Base\tax_query_includes_children;
 		return $template;
 	}
 
-	\add_action( 'cmls_template-archive-after_content', function ( $args ) {
+	$tag_taxes = \array_map(
+		function ( $str ) {
+			return $str . '-tag';
+		},
+		CPTs::getKeys()
+	);
+
+	$is_tag_query  = false;
+	$tags_searched = array();
+
+	foreach ( $tag_taxes as $tag_tax ) {
+		if ( ! empty( $_GET[$tag_tax] ) ) {
+			$is_tag_query = true;
+			$tax          = \get_term_by( 'slug', $_GET[$tag_tax], $tag_tax );
+			if ( $tax ) {
+				$tags_searched[] = $tax;
+			}
+		}
+	}
+
+	if ( \count( $tags_searched ) ) {
+		\add_action( 'cmls_template-archive-header-after_title', function () use ( $tags_searched ) {
+			$args['tags_searched'] = $tags_searched;
+			include 'archives/term_view_tags.php';
+		} );
+	}
+
+	\add_action( 'cmls_template-archive-after_content', function ( $args ) use ( $is_tag_query, $tag_taxes ) {
 		$term_children = array();
 		if ( \is_array( $args ) && \array_key_exists( 'term_children', $args ) ) {
 			$term_children = $args['term_children'];
@@ -82,21 +115,6 @@ use function CMLS_Base\tax_query_includes_children;
 					'include'    => $term_children_ids,
 					'hide_empty' => true,
 				) );
-			}
-		}
-
-		$tag_taxes = \array_map(
-			function ( $str ) {
-				return $str . '-tag';
-			},
-			CPTs::getKeys()
-		);
-
-		$is_tag_query = false;
-
-		foreach ( $tag_taxes as $tag_tax ) {
-			if ( ! empty( $_GET[$tag_tax] ) ) {
-				$is_tag_query = true;
 			}
 		}
 

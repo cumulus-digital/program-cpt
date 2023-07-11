@@ -35,4 +35,21 @@
 			padding-bottom: 0;
 		}
 	}
+
+	.page_title .tags {
+		@include tags;
+		margin-top: 0.5em;
+		justify-content: center;
+
+		span {
+			font-weight: bold;
+		}
+		a {
+			@include hover {
+				span {
+					color: red;
+				}
+			}
+		}
+	}
 }

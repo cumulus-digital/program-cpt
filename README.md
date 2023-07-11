@@ -10,7 +10,6 @@ jason-pomerleau/vscode-wordpress-toolbox, see refresh script in
 
 When including future libraries for distribution, run ./rescope.sh after to ensure they're committed to the plugin.
 
-NOTE: Uses extended-cpts, which does not currently support hierarchical taxonomy permalinks. See libs/extended-cpts-hierarchical-post-links.php
-for override filter.
+NOTE: Uses extended-cpts, which does not currently support hierarchical taxonomy permalinks. See libs/extended-cpts-hierarchical-post-links.php for override filter.
 
 https://github.com/johnbillion/extended-cpts/pull/104/files

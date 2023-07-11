@@ -1,6 +1,6 @@
 {
   "name": "program-cpt",
-  "version": "1.0.0",
+  "version": "1.5.0",
   "description": "Custom post type for 'programs' at westwoodone.com",
   "main": "index.js",
   "scripts": {
