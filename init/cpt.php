@@ -584,7 +584,7 @@ class CPT {
 						'post_status' => $status,
 					) );
 
-					if ( $test_post ) {
+					if ( $test_post && $test_post->have_posts() ) {
 						$new_template = \CMLS_Base\cmls_locate_template( array(
 							"single-{$this->prefix}.php",
 							'single.php',
