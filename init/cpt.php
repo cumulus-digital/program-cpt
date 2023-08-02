@@ -305,6 +305,11 @@ class CPT {
 	 * Determine if the current query is for our cpt/tax archive.
 	 */
 	public function isOurQuery() {
+		global $wp_query;
+		if ( ! $wp_query ) {
+			return false;
+		}
+
 		$q = \get_queried_object();
 
 		if (
@@ -326,6 +331,9 @@ class CPT {
 	 */
 	public function isTermQuery() {
 		global $wp_query;
+		if ( ! $wp_query ) {
+			return false;
+		}
 		$tax = $wp_query->get( 'taxonomy' );
 
 		return $tax === $this->prefix . '-cat' || $tax === $this->prefix . '-tag';
@@ -554,6 +562,10 @@ class CPT {
 		// Handle template include for posts without a category slug
 		\add_action( 'template_include', function ( $template ) {
 			global $wp_query;
+			if ( ! $wp_query ) {
+				return $template;
+			}
+
 			$post_type = $wp_query->get( 'post_type' );
 
 			if ( \is_admin() || ! \is_404() ) {
@@ -608,6 +620,10 @@ class CPT {
 		// Handle redirects for deeply nested categories without /category/
 		\add_action( 'template_redirect', function () {
 			global $wp_query;
+			if ( ! $wp_query ) {
+				return;
+			}
+
 			$post_type = $wp_query->get( 'post_type' );
 
 			if (
