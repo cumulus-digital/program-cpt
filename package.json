@@ -26,7 +26,7 @@
   "author": "vena",
   "license": "UNLICENSED",
   "devDependencies": {
-    "@wordpress/scripts": "^26.8.0",
+    "@wordpress/scripts": "^26.11.0",
     "bourbon": "^7.0.0",
     "colord": "^2.9.2",
     "jquery": "^3.5.1",

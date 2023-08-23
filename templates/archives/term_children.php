@@ -14,7 +14,7 @@ use function CMLS_Base\make_post_class;
 $display_args = get_tax_display_args();
 
 $tax_tag_query = array();
-$tag_search = array();
+$tag_search    = array();
 foreach( $args['tag_taxes'] as $tag_tax ) {
 	if ( ! empty( $_GET[$tag_tax] ) ) {
 		$tax_tag_query[] = array(
@@ -22,11 +22,11 @@ foreach( $args['tag_taxes'] as $tag_tax ) {
 			'field'    => 'slug',
 			'terms'    => $_GET[$tag_tax],
 		);
-		$tag_search[] = get_taxonomy($tag_tax);
+		$tag_search[] = \get_taxonomy( $tag_tax );
 	}
 }
 
-if (count($tag_search)) {
+if ( \count( $tag_search ) ) {
 }
 
 function get_term_posts( $term, $additional_tax_query ) {
@@ -100,6 +100,7 @@ function output_term_row( $term, $display_args, $level = 1 ) {
 							'display_format' => 'cards small',
 							'the_posts'      => $term->child_posts,
 							'row-class'      => 'tax-child small',
+							'thumbnail_size' => 'medium',
 						)
 					)
 				);
