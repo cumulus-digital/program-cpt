@@ -12,7 +12,7 @@
 		// responsive view should have sidebar last
 		@include phone {
 			flex-direction: column-reverse;
-			gap: 2rem;
+			gap: 1.5rem;
 		}
 
 		.wp-block-column {
