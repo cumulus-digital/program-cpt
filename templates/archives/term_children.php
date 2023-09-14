@@ -97,10 +97,13 @@ function output_term_row( $term, $display_args, $level = 1 ) {
 					\array_merge(
 						$display_args,
 						array(
-							'display_format' => 'cards small',
-							'the_posts'      => $term->child_posts,
-							'row-class'      => 'tax-child small',
-							'thumbnail_size' => 'medium',
+							'display_format'       => 'cards small',
+							'the_posts'            => $term->child_posts,
+							'row-class'            => 'tax-child small',
+							'thumbnail_size'       => 'medium',
+							'thumbnail_attributes' => array(
+								'sizes' => '400px',
+							),
 						)
 					)
 				);

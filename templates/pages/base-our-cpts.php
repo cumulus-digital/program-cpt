@@ -23,6 +23,23 @@ $post_class   = array(
 		? 'has-header-background' : 'no-header-background',
 	\has_post_thumbnail() ? 'has-featured-image' : 'no-featured-image',
 );
+
+$css_vars = array();
+if ( $display_args ) {
+	$css_vars = array(
+		'--progam-header-background-color'     => $display_args['background-color'],
+		'--progam-header-background-image'     => 'none',
+		'--progam-header-background-position'  => $display_args['background-position'],
+		'--progam-header-background-repeat'    => $display_args['background-repeat'],
+		'--progam-header-background-size'      => $display_args['background-size'],
+		'--progam-header-title-color'          => $display_args['title-color'],
+		'--progam-header-title-shadow-opacity' => $display_args['title-shadow-opacity'],
+	);
+	if ( \array_key_exists( 'background_image', $display_args ) && \array_key_exists( 'url', $display_args['background-image'] ) ) {
+		$css_vars['--progam-header-background-image'] = "url('{$display_args['background-image']['url']}')";
+	}
+}
+
 ?>
 
 <!-- Template from CPT plugin -->
@@ -32,21 +49,11 @@ $post_class   = array(
 >
 	<?php if ( $show_header ): ?>
 	<style>
-		<?php if ( $display_args ): ?>
-		article#post-<?php \the_ID(); ?> {
-			--progam-header-background-color: <?php echo $display_args['background-color']; ?>;
-
-			<?php if ( \array_key_exists( 'background_image', $display_args ) && \array_key_exists( 'url', $display_args['background-image'] ) ): ?>
-				--progam-header-background-image: url('<?php echo $display_args['background-image']['url']; ?>');
-			<?php endif; ?>
-
-			--progam-header-background-position: <?php echo $display_args['background-position']; ?>;
-			--progam-header-background-repeat: <?php echo $display_args['background-repeat']; ?>;
-			--progam-header-background-size: <?php echo $display_args['background-size']; ?>;
-			--progam-header-title-color: <?php echo $display_args['title-color']; ?>;
-			--progam-header-title-shadow-opacity: <?php echo $display_args['title-shadow-opacity']; ?>;
+		#post-<?php \the_ID(); ?> {
+			<?php foreach( $css_vars as $css_key => $css_val ): ?>
+			<?php echo $css_key; ?>: <?php echo $css_val; ?>;
+			<?php endforeach; ?>
 		}
-		<?php endif; ?>
 	</style>
 	<header class="full-width">
 		<div class="row-container">
@@ -85,14 +92,14 @@ $post_class   = array(
 
 	<?php if ( $tags ): ?>
 		<aside class="tags">
-			<h5>Tags:</h5>
+			<h2>Tags:</h2>
 			<?php
 				\the_terms(
 					\get_the_ID(),
 					$req->post_type . '-tag',
-					null,
-					null,
-					null
+					'',
+					'',
+					''
 				);
 		?>
 		</aside>

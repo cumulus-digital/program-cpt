@@ -40,6 +40,19 @@ use function CMLS_Base\tax_query_includes_children;
 	return $q;
 } );
 
+// Set appropriate image sizes
+\add_filter( 'display-archive-all', function ( $args ) {
+	if ( ! CPTs::isOurQuery() || ! \is_archive( CPTs::getKeys() ) || \is_search() ) {
+		return $args;
+	}
+
+	if ( $args['thumbnail_size'] === 'thumbnail-uncropped' ) {
+		$args['thumbnail_attributes']['sizes'] = '(max-width: 600px) 150px, 400px';
+	}
+
+	return $args;
+} );
+
 // Include sub-categories in archives
 \add_action( 'template_include', function ( $template ) {
 	if ( ! CPTs::isOurQuery() || ! \is_archive( CPTs::getKeys() ) || \is_search() ) {
