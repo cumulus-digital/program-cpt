@@ -25,6 +25,7 @@ namespace CUMULUS\Wordpress\ProgramCPT;
 
 \add_action( 'wp_enqueue_scripts', function () {
 	if ( \is_singular( CPTs::getKeys() ) || CPTs::isOurQuery() ) {
+		/*
 		$assets = include BASEPATH . '/build/frontend.asset.php';
 		\wp_register_script(
 			PREFIX . '_script-frontend',
@@ -34,6 +35,7 @@ namespace CUMULUS\Wordpress\ProgramCPT;
 			true
 		);
 		\wp_enqueue_script( PREFIX . '_script-frontend' );
+		 */
 
 		\wp_register_style(
 			PREFIX . '_style',
