@@ -86,6 +86,17 @@ function output_term_row( $term, $display_args, $level = 1 ) {
 						<?php echo \wp_kses_post( \apply_filters( 'single_term_title', $term->name ) ); ?>
 					</a>
 				</h<?php echo $level + 2; ?>>
+				<?php $subtitle = get_field( 'field_6136452e5eecb', $term ); ?>
+				<?php if ( $subtitle ): ?>
+					<h<?php echo $level + 3; ?>>
+						<?php echo \wp_kses_post( $subtitle ); ?>
+					</h<?php echo $level + 3; ?>>
+				<?php endif; ?>
+				<?php if ( $term->description ): ?>
+					<div class="tax-child-description">
+						<?php echo \wp_kses_post( $term->description ); ?>
+					</div>
+				<?php endif; ?>
 			</div>
 
 
